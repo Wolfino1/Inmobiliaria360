@@ -29,4 +29,8 @@ public class CategoryServiceImpl implements CategoryService {
     public List<CategoryResponse> getCategories(Integer page, Integer size, boolean orderAsc) {
         return categoryDtoMapper.modelListToResponseList(categoryServicePort.get(page, size, orderAsc));
     }
+    @Override
+    public List<CategoryResponse> getAllCategoriesFilters(Integer page, Integer size, String name, String description, boolean orderAsc) {
+        return categoryDtoMapper.modelListToResponseList(categoryServicePort.getFilters(page, size, name, description, orderAsc));
+    }
 }

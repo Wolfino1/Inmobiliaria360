@@ -38,6 +38,20 @@ public class CategoryPersistenceAdapter implements CategoryPersistencePort {
         else pagination = PageRequest.of(page, size, Sort.by(Constants.PAGEABLE_FIELD_NAME).descending());
         return categoryEntityMapper.entityListToModelList(categoryRepository.findAll(pagination).getContent());
     }
+    @Override
+    public List<CategoryModel> getFilters(Integer page, Integer size, String name, String description, boolean orderAsc) {
+        if (name != null) {
+            return List.of(categoryEntityMapper.entityToModel(categoryRepository.findByName(name).orElse(null)));
+        } else if (description != null) {
+            Pageable pagination;
+            if (orderAsc) pagination = PageRequest.of(page, size, Sort.by(Constants.PAGEABLE_FIELD_NAME).ascending());
+            else pagination = PageRequest.of(page, size, Sort.by(Constants.PAGEABLE_FIELD_NAME).descending());
+            return categoryEntityMapper.entityListToModelList(categoryRepository.findByDescriptionContaining(description, pagination)
+                    .getContent());
+        } else {
+            return get(page, size, orderAsc);
+        }
+    }
 }
 
 

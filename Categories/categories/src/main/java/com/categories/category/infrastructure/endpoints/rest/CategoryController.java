@@ -27,4 +27,12 @@ public class CategoryController {
                                                                    @RequestParam boolean orderAsc) {
         return ResponseEntity.ok(categoryService.getCategories(page, size, orderAsc));
     }
+    @GetMapping("/filters")
+    public ResponseEntity<List<CategoryResponse>> getAllCategoriesFilters(@RequestParam Integer page,
+                                                                          @RequestParam Integer size,
+                                                                          @RequestParam(required = false) String name,
+                                                                          @RequestParam(required = false) String description,
+                                                                          @RequestParam boolean orderAsc) {
+        return ResponseEntity.ok(categoryService.getAllCategoriesFilters(page, size, name, description, orderAsc));
+    }
 }

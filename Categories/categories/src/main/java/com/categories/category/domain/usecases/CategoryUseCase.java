@@ -27,4 +27,8 @@ public class CategoryUseCase implements CategoryServicePort {
     public List<CategoryModel> get(Integer page, Integer size, boolean orderAsc) {
         return categoryPersistencePort.get(page, size, orderAsc);
     }
+    @Override
+    public List<CategoryModel> getFilters(Integer page, Integer size, String name, String description, boolean orderAsc) {
+        return categoryPersistencePort.getFilters(page, size, name, description, orderAsc);
+    }
 }
